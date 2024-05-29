@@ -24,6 +24,7 @@ import ChooseLanguage from '../modules/main/profile/ChooseLanguage';
 import CancelOrder from '../modules/main/order/details/CancelOrder';
 import SearchProducts from '../modules/main/dashboard/SearchProducts';
 import PaymentMethods from '../modules/main/order/details/PaymentMethods';
+import RateOrder from '../modules/main/order/details/RateOrder';
 import OrderProductDetails from '../modules/main/order/details/OrderProductDetails';
 import ReturnItem from '../modules/main/order/details/ReturnItem';
 import Complaints from '../modules/main/complaint/list/Complaints';
@@ -219,6 +220,11 @@ const AppNavigation: React.FC<AppNavigation> = ({navigationRef}) => {
         <Stack.Screen
           name="PaymentMethods"
           component={PaymentMethods}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RateOrder"
+          component={RateOrder}
           options={{headerShown: false}}
         />
         <Stack.Screen
