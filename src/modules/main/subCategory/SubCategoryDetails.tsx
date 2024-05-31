@@ -5,6 +5,7 @@ import {appStyles} from '../../../styles/styles';
 import SubCategories from './components/SubCategories';
 import Products from '../../../components/products/Products';
 import Page from '../../../components/page/Page';
+import Offers from '../category/components/Offers';
 
 interface SubCategoryDetails {
   route: any;
@@ -39,6 +40,7 @@ const SubCategoryDetails: React.FC<SubCategoryDetails> = ({
           setCurrentSubCategory={setCurrentSubCategory}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
+        <Offers />
           <Products
             providerId={null}
             customMenu={null}

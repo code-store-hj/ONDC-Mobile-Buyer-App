@@ -33,6 +33,7 @@ import {CURRENCY_SYMBOLS, FB_DOMAIN} from '../../../../utils/constants';
 import CloseSheetContainer from '../../../../components/bottomSheet/CloseSheetContainer';
 import {useAppTheme} from '../../../../utils/theme';
 import DeleteIcon from '../../../../assets/delete.svg';
+import ApplyCoupon from './ApplyCoupon'
 
 interface CartItems {
   allowScroll?: boolean;
@@ -338,6 +339,7 @@ const CartItems: React.FC<CartItems> = ({
             </View>
           </View>
         ))}
+        <ApplyCoupon/>
         {haveDistinctProviders && (
           <View style={styles.errorBox}>
             <Text variant={'bodyMedium'} style={styles.errorText}>
