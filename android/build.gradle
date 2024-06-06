@@ -23,6 +23,8 @@ buildscript {
     }
 }
 
+def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+
 allprojects {
     repositories {
         maven { url "https://maven.juspay.in/jp-build-packages/hyper-sdk/" }
@@ -33,6 +35,7 @@ allprojects {
         configurations.configureEach {
             resolutionStrategy{
                 force "com.google.android.gms:play-services-location:21.0.1"
+                force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
             }
         }
     }
