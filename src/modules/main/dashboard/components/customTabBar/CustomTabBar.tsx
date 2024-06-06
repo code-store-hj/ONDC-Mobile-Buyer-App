@@ -54,7 +54,7 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({
   const {t} = useTranslation();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
-  const {cartItems} = useSelector(({cartReducer}) => cartReducer);
+  const {cartItems} = useSelector((state: any) => state.Cart);
 
   return (
     <View style={[styles.container, styles.boxShadow]}>

@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux';
 
 export default () => {
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {token} = useSelector((state: any) => state.Auth);
 
   /**
    * Function is used to upload the file to s3

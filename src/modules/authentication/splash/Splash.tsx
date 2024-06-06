@@ -11,7 +11,7 @@ import {isDeviceRooted} from 'react-native-detect-frida';
 import {appStyles} from '../../../styles/styles';
 import {getMultipleData, getStoredData} from '../../../utils/storage';
 import i18n from '../../../i18n';
-import {saveAddress} from '../../../redux/address/actions';
+import {setAddress} from '../../../redux/reducer/Address'
 import {getUrlParams} from '../../../utils/utils';
 import {alertWithOneButton} from '../../../utils/alerts';
 import AppLogo from '../../../assets/app_logo.svg';
@@ -48,7 +48,7 @@ const Splash: React.FC<Splash> = ({navigation}) => {
       const addressString = await getStoredData('address');
       if (addressString) {
         const address = JSON.parse(addressString);
-        dispatch(saveAddress(address));
+        dispatch(setAddress(address));
         if (pageParams) {
           navigation.reset({
             index: 0,
@@ -167,7 +167,9 @@ const Splash: React.FC<Splash> = ({navigation}) => {
           'Alert',
           'Please setup the device lock to access this application',
           'Ok',
-          () => {},
+          () => {
+            processLink();
+          },
         );
       } else {
         if (JailMonkey.isJailBroken()) {

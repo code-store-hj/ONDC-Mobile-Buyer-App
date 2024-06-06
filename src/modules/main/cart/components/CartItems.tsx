@@ -23,7 +23,7 @@ import {
 } from '../../../../utils/utils';
 import useNetworkHandling from '../../../../hooks/useNetworkHandling';
 import FBProductCustomization from '../../provider/components/FBProductCustomization';
-import {updateCartItems} from '../../../../redux/cart/actions';
+import {updateCartItems} from '../../../../reduxFile/cart/actions';
 import Customizations from '../../../../components/customization/Customizations';
 import ManageQuantity from '../../../../components/customization/ManageQuantity';
 import useUpdateSpecificItemCount from '../../../../hooks/useUpdateSpecificItemCount';
@@ -64,7 +64,7 @@ const CartItems: React.FC<CartItems> = ({
   const {updatingCartItem, updateSpecificCartItem} =
     useUpdateSpecificItemCount();
   const dispatch = useDispatch();
-  const {uid} = useSelector(({authReducer}) => authReducer);
+  const {uid} = useSelector((state: any) => state.Auth);
   const navigation = useNavigation<StackNavigationProp<any>>();
   const customizationSheet = useRef<any>(null);
   const source = useRef<any>(null);

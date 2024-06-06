@@ -3,7 +3,8 @@ import {useDispatch} from 'react-redux';
 import uuid from 'react-native-uuid';
 
 import {saveMultipleData} from '../utils/storage';
-import {checkLanguageAndLogin} from '../redux/auth/actions';
+import {checkLanguageAndLogin} from '../reduxFile/auth/actions';
+import {setLoginDetails} from '../redux/reducer/Auth';
 
 export default () => {
   const navigation = useNavigation<any>();
@@ -39,7 +40,7 @@ export default () => {
         photoURL: photoURL,
         transaction_id: transactionId,
       };
-      dispatch({type: 'set_login_details', payload});
+      dispatch(setLoginDetails(payload));
 
       checkLanguageAndLogin(navigation);
     } catch (error) {

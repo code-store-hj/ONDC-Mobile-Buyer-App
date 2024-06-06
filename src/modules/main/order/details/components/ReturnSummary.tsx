@@ -13,7 +13,7 @@ const ReturnSummary = ({fulfilmentId}: {fulfilmentId: any}) => {
   const {t} = useTranslation();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
-  const {orderDetails} = useSelector(({orderReducer}) => orderReducer);
+  const {orderDetails} = useSelector((state: any) => state.orderReducer);
 
   const [itemId, setItemId] = useState<any>(null);
   const [images, setImages] = useState<any[]>([]);

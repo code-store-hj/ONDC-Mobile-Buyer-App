@@ -16,7 +16,7 @@ import RNEventSource from 'react-native-event-source';
 import useNetworkHandling from '../../../../../hooks/useNetworkHandling';
 import {SSE_TIMEOUT} from '../../../../../utils/constants';
 import {makeButtonStyles} from './buttonStyles';
-import {updateRequestingTracker} from '../../../../../redux/order/actions';
+import {updateRequestingTracker} from '../../../../../reduxFile/order/actions';
 import {
   API_BASE_URL,
   MAP_ACCESS_TOKEN,
@@ -65,7 +65,7 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
     ({orderReducer}) => orderReducer,
   );
   const trackEventSourceResponseRef = useRef<any>(null);
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {token} = useSelector((state: any) => state.Auth);
   const source = useRef<any>(null);
   const eventTimeOutRef = useRef<any>(null);
   const [trackingUrl, setTrackingUrl] = useState<string>('');

@@ -13,7 +13,7 @@ import useNetworkErrorHandling from '../../../../hooks/useNetworkErrorHandling';
 import {skeletonList} from '../../../../utils/utils';
 import {appStyles} from '../../../../styles/styles';
 import AddressSkeleton from '../../dashboard/components/address/AddressSkeleton';
-import {saveAddress} from '../../../../redux/address/actions';
+import {setAddress} from '../../../../redux/reducer/Address';
 import {useAppTheme} from '../../../../utils/theme';
 import {setStoredData} from '../../../../utils/storage';
 
@@ -42,7 +42,7 @@ const AddressList: React.FC<AddressList> = ({
 
   const updateDeliveryAddress = async (newAddress: any) => {
     await setStoredData('address', JSON.stringify(newAddress));
-    dispatch(saveAddress(newAddress));
+    dispatch(setAddress(newAddress));
     setDeliveryAddress(Object.assign({}, newAddress));
   };
 

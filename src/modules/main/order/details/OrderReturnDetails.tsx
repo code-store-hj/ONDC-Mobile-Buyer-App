@@ -15,7 +15,7 @@ const OrderReturnDetails = ({route: {params}}: {route: any}) => {
   const navigation = useNavigation();
   const {colors} = useAppTheme();
   const styles = makeStyles(colors);
-  const {orderDetails} = useSelector(({orderReducer}) => orderReducer);
+  const {orderDetails} = useSelector((state: any) => state.orderReducer);
 
   return (
     <View style={styles.orderDetails}>

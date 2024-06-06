@@ -74,8 +74,8 @@ const RaiseIssueButton = ({
   const source = useRef<any>(null);
   const eventTimeOutRef = useRef<any>(null);
   const responseRef = useRef<any[]>([]);
-  const {orderDetails} = useSelector(({orderReducer}) => orderReducer);
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {orderDetails} = useSelector((state: any) => state.orderReducer);
+  const {token} = useSelector((state: any) => state.Auth);
   const {getDataWithAuth, postDataWithAuth} = useNetworkHandling();
   const [visible, setVisible] = React.useState(false);
   const [selectedItems, setSelectedItems] = useState<any[]>([]);

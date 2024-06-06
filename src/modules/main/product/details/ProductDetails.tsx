@@ -33,7 +33,7 @@ import {
   showToastWithGravity,
 } from '../../../../utils/utils';
 import {makeGlobalStyles} from '../../../../styles/styles';
-import {updateCartItems} from '../../../../redux/cart/actions';
+import {updateCartItems} from '../../../../reduxFile/cart/actions';
 import Page from '../../../../components/page/Page';
 import AboutProduct from './components/AboutProduct';
 import {useAppTheme} from '../../../../utils/theme';
@@ -73,13 +73,13 @@ const ProductDetails: React.FC<ProductDetails> = ({
   const voiceDetectionStarted = useRef<boolean>(false);
   const {t} = useTranslation();
   const firstTime = useRef<boolean>(true);
-  const {uid} = useSelector(({authReducer}) => authReducer);
+  const {uid} = useSelector((state: any) => state.Auth);
   const source = useRef<any>(null);
   const dispatch = useDispatch();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
   const globalStyles = makeGlobalStyles(theme.colors);
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const {
     startVoice,
     userInteractionStarted,

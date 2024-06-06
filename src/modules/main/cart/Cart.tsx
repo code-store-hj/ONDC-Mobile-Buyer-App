@@ -37,7 +37,7 @@ const Cart = () => {
   const {t} = useTranslation();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
-  const {address} = useSelector(({addressReducer}) => addressReducer);
+  const {address} = useSelector((state: any) => state.Address);
   const isFocused = useIsFocused();
   const addressSheet = useRef<any>();
   const fulfillmentSheet = useRef<any>();
@@ -90,7 +90,7 @@ const Cart = () => {
     setActivePaymentMethod,
   } = useConfirmItems(closePaymentSheet);
 
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const {
     startVoice,
     userInteractionStarted,

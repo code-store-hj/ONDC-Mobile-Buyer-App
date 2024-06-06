@@ -20,7 +20,7 @@ import {
 import {constructQuoteObject, showToastWithGravity} from '../utils/utils';
 import useNetworkHandling from './useNetworkHandling';
 import useNetworkErrorHandling from './useNetworkErrorHandling';
-import {updateTransactionId} from '../redux/auth/actions';
+import {updateTransactionId} from '../reduxFile/auth/actions';
 
 const CancelToken = axios.CancelToken;
 export default (closePaymentSheet: () => void) => {
@@ -29,7 +29,7 @@ export default (closePaymentSheet: () => void) => {
   const responseRef = useRef<any[]>([]);
   const source = useRef<any>(null);
   const eventTimeOutRef = useRef<any[]>([]);
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {token} = useSelector((state: any) => state.Auth);
   const {getDataWithAuth, postDataWithAuth} = useNetworkHandling();
   const {handleApiError} = useNetworkErrorHandling();
   const [deliveryAddress, setDeliveryAddress] = useState<any>(null);

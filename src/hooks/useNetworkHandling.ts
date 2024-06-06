@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import {getVersion} from 'react-native-device-info';
 
 export default () => {
-  const {token, language} = useSelector(({authReducer}) => authReducer);
+  const {token, language} = useSelector((state: any) => state.Auth);
 
   const getAuthConfig = (cancelToken = null) => {
     const config: any = {

@@ -18,8 +18,8 @@ import {
 } from '../utils/apiActions';
 import {setStoredData} from '../utils/storage';
 import useNetworkHandling from './useNetworkHandling';
-import {updateCartItems} from '../redux/cart/actions';
-import {updateTransactionId} from '../redux/auth/actions';
+import {updateCartItems} from '../reduxFile/cart/actions';
+import {updateTransactionId} from '../reduxFile/auth/actions';
 
 const CancelToken = axios.CancelToken;
 
@@ -28,9 +28,7 @@ export default (openFulfillmentSheet: () => void) => {
   const dispatch = useDispatch();
   const source = useRef<any>(null);
   const address = useRef<any>(null);
-  const {token, uid, transaction_id} = useSelector(
-    ({authReducer}) => authReducer,
-  );
+  const {token, uid, transaction_id} = useSelector((state: any) => state.Auth);
   const navigation = useNavigation<StackNavigationProp<any>>();
   const responseRef = useRef<any[]>([]);
   const eventTimeOutRef = useRef<any[]>([]);

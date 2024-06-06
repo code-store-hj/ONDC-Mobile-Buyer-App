@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {clearAllData} from '../redux/actions';
+import {clearAllData} from '../reduxFile/actions';
 import {alertWithOneButton} from '../utils/alerts';
 import {showToastWithGravity} from '../utils/utils';
-import {logoutUser} from '../redux/auth/actions';
+import {logoutUser} from '../reduxFile/auth/actions';
 
 let sessionExpiredMessageShown = false;
 

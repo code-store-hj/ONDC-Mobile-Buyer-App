@@ -130,7 +130,7 @@ const ItemDetails = ({
   items: any[];
 }) => {
   const {t} = useTranslation();
-  const {orderDetails} = useSelector(({orderReducer}) => orderReducer);
+  const {orderDetails} = useSelector((state: any) => state.orderReducer);
   const navigation = useNavigation<any>();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);

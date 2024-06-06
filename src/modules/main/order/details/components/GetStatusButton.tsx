@@ -16,7 +16,7 @@ import {showToastWithGravity} from '../../../../../utils/utils';
 import useNetworkHandling from '../../../../../hooks/useNetworkHandling';
 import {SSE_TIMEOUT} from '../../../../../utils/constants';
 import {makeButtonStyles} from './buttonStyles';
-import {updateRequestingStatus} from '../../../../../redux/order/actions';
+import {updateRequestingStatus} from '../../../../../reduxFile/order/actions';
 import {useAppTheme} from '../../../../../utils/theme';
 
 interface GetStatusButton {
@@ -31,7 +31,7 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
   const {orderDetails, requestingStatus} = useSelector(
     ({orderReducer}) => orderReducer,
   );
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {token} = useSelector((state: any) => state.Auth);
   const source = useRef<any>(null);
   const eventTimeOutRef = useRef<any>(null);
   const statusEventSourceResponseRef = useRef<any>(null);
