@@ -167,9 +167,7 @@ const Splash: React.FC<Splash> = ({navigation}) => {
           'Alert',
           'Please setup the device lock to access this application',
           'Ok',
-          () => {
-            processLink();
-          },
+          () => {},
         );
       } else {
         if (JailMonkey.isJailBroken()) {
