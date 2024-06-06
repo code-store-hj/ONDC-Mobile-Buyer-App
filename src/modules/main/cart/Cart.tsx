@@ -74,7 +74,7 @@ const Cart = () => {
     haveDistinctProviders,
     isProductAvailableQuantityIsZero,
     isProductCategoryIsDifferent,
-    setCartItems,
+    setCartItemsData,
     selectedItems,
     setSelectedItems,
     selectedItemsForInit,
@@ -520,7 +520,7 @@ const Cart = () => {
                   <CartItems
                     providerWiseItems={providerWiseItems}
                     cartItems={cartItems}
-                    setCartItems={setCartItems}
+                    setCartItemsData={setCartItemsData}
                     haveDistinctProviders={haveDistinctProviders}
                     isProductCategoryIsDifferent={isProductCategoryIsDifferent}
                   />

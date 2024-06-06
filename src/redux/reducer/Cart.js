@@ -10,10 +10,10 @@ const Cart = createSlice({
       state.cartItems = action.payload;
     },
     setClearCart(state) {
-      state = initialState;
+      state.cartItems = [];
     },
     setclearAllData(state) {
-      state = initialState;
+      state.cartItems = [];
     },
   },
   extraReducers: builder => {},
