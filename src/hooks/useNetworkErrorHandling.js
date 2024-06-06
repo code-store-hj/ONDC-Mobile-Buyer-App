@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {clearAllData} from '../reduxFile/actions';
+import {setclearAllData} from '../redux/reducer/Cart';
 import {alertWithOneButton} from '../utils/alerts';
 import {showToastWithGravity} from '../utils/utils';
-import {logoutUser} from '../reduxFile/auth/actions';
+import {setLogoutUser} from '../redux/reducer/Auth';
 
 let sessionExpiredMessageShown = false;
 
@@ -12,8 +12,8 @@ export default () => {
   const navigation = useNavigation();
 
   const clearDataAndLogout = () => {
-    logoutUser(dispatch);
-    dispatch(clearAllData());
+    dispatch(setLogoutUser())
+    dispatch(setclearAllData());
 
     navigation.reset({
       index: 0,

@@ -9,9 +9,15 @@ const Cart = createSlice({
     setCartItems(state, action) {
       state.cartItems = action.payload;
     },
+    setClearCart(state) {
+      state = initialState;
+    },
+    setclearAllData(state) {
+      state = initialState;
+    },
   },
   extraReducers: builder => {},
 });
 
-export const {setAddress} = Cart.actions;
+export const {setCartItems, setClearCart, setclearAllData} = Cart.actions;
 export default Cart.reducer;

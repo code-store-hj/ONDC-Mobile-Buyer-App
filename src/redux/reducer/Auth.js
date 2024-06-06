@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {clearAll, getStoredData, setStoredData} from '../../utils/storage';
 // import {PastToursAPI} from '../apis';
 
 const Auth = createSlice({
@@ -13,7 +14,6 @@ const Auth = createSlice({
   },
   reducers: {
     setLoginDetails(state, action) {
-      console.log('login action : ',action)
       state.token = action.payload.token;
       state.emailId = action.payload.emailId;
       state.uid = action.payload.uid;
@@ -22,10 +22,26 @@ const Auth = createSlice({
       state.transaction_id = action.payload.transaction_id;
     },
     setToken(state, action) {
-        state.token = action.payload;
+      state.token = action.payload;
     },
     setTractionId(state, action) {
-        state.transaction_id= action.payload;
+      state.transaction_id = action.payload;
+    },
+    setLanguage(state, action) {
+      state.language = action.payload;
+    },
+    setLogoutUser(state) {
+      clearAll().then(() => {
+        state = Object.assign({}, state, initialState);
+      });
+    },
+    setSaveUser(state, action) {
+      state.token = action.payload.token;
+      state.emailId = action.payload.emailId;
+      state.uid = action.payload.uid;
+      state.name = action.payload.name;
+      state.photoURL = action.payload.photoURL;
+      state.transaction_id = action.payload.transaction_id;
     },
   },
   extraReducers: builder => {
@@ -47,7 +63,6 @@ const Auth = createSlice({
     //   }else{
     //     state.isLoadMore = null;
     //   }
-      
     // });
     // builder.addCase(PastToursAPI.rejected, state => {
     //   console.log('reject :: ');
@@ -58,5 +73,12 @@ const Auth = createSlice({
   },
 });
 
-export const {setLoginDetails, setToken, setTractionId} = Auth.actions;
+export const {
+  setLoginDetails,
+  setToken,
+  setTractionId,
+  setLanguage,
+  setLogoutUser,
+  setSaveUser,
+} = Auth.actions;
 export default Auth.reducer;

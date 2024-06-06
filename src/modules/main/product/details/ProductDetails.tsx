@@ -33,7 +33,7 @@ import {
   showToastWithGravity,
 } from '../../../../utils/utils';
 import {makeGlobalStyles} from '../../../../styles/styles';
-import {updateCartItems} from '../../../../reduxFile/cart/actions';
+import {setCartItems} from '../../../../redux/reducer/Cart';
 import Page from '../../../../components/page/Page';
 import AboutProduct from './components/AboutProduct';
 import {useAppTheme} from '../../../../utils/theme';
@@ -234,7 +234,7 @@ const ProductDetails: React.FC<ProductDetails> = ({
         setItemAvailableInCart(null);
         setIsItemAvailableInCart(false);
       }
-      dispatch(updateCartItems(data));
+      dispatch(setCartItems(data));
       return data;
     } catch (error) {
       console.log('Error fetching cart items:', error);

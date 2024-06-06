@@ -20,7 +20,7 @@ import {
 import {constructQuoteObject, showToastWithGravity} from '../utils/utils';
 import useNetworkHandling from './useNetworkHandling';
 import useNetworkErrorHandling from './useNetworkErrorHandling';
-import {updateTransactionId} from '../reduxFile/auth/actions';
+import {setTractionId} from '../redux/reducer/Auth';
 
 const CancelToken = axios.CancelToken;
 export default (closePaymentSheet: () => void) => {
@@ -281,7 +281,7 @@ export default (closePaymentSheet: () => void) => {
         await removeData('parent_order_id');
         await removeData('checkout_details');
         await removeData('parent_and_transaction_id_map');
-        dispatch(updateTransactionId(transactionId));
+        dispatch(setTractionId(transactionId));
         closePaymentSheet();
         navigation.navigate('OrderDetails', {
           orderId: responseRef.current[0].message?.order?.id,

@@ -16,7 +16,7 @@ import {showToastWithGravity} from '../../../../../utils/utils';
 import useNetworkHandling from '../../../../../hooks/useNetworkHandling';
 import {SSE_TIMEOUT} from '../../../../../utils/constants';
 import {makeButtonStyles} from './buttonStyles';
-import {updateRequestingStatus} from '../../../../../reduxFile/order/actions';
+import {setUpdateRequestingStatus} from '../../../../../redux/reducer/orderReducer';
 import {useAppTheme} from '../../../../../utils/theme';
 
 interface GetStatusButton {
@@ -43,7 +43,7 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
   const handleFetchUpdatedStatus = async (selfUpdate = false) => {
     statusEventSourceResponseRef.current = [];
     if (!selfUpdate) {
-      dispatch(updateRequestingStatus(true));
+      dispatch(setUpdateRequestingStatus(true));
     }
     source.current = CancelToken.source();
     const transaction_id = orderDetails?.transactionId;
@@ -67,14 +67,14 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
       );
       //Error handling workflow eg, NACK
       if (data[0].error && data[0].message.ack.status === 'NACK') {
-        dispatch(updateRequestingStatus(false));
+        dispatch(setUpdateRequestingStatus(false));
         showToastWithGravity(data[0].error.message);
       } else {
         fetchStatusDataThroughEvents(data[0]?.context?.message_id, selfUpdate);
       }
     } catch (err: any) {
       showToastWithGravity(err?.message);
-      dispatch(updateRequestingStatus(false));
+      dispatch(setUpdateRequestingStatus(false));
     }
   };
 
@@ -92,7 +92,7 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
       const {message, error = {}} = data[0];
       if (error?.message) {
         showToastWithGravity('Cannot get status for this product');
-        dispatch(updateRequestingStatus(false));
+        dispatch(setUpdateRequestingStatus(false));
         return;
       }
       if (message?.order) {
@@ -101,9 +101,9 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
           showToastWithGravity(t('Profile.Order status updated successfully'));
         }
       }
-      dispatch(updateRequestingStatus(false));
+      dispatch(setUpdateRequestingStatus(false));
     } catch (err: any) {
-      dispatch(updateRequestingStatus(false));
+      dispatch(setUpdateRequestingStatus(false));
       showToastWithGravity(err?.message);
       eventTimeOutRef.current.eventSource.close();
       clearTimeout(eventTimeOutRef.current.timer);
@@ -135,7 +135,7 @@ const GetStatusButton: React.FC<GetStatusButton> = ({onUpdateOrder}) => {
         showToastWithGravity(
           'Cannot proceed with you request now! Please try again',
         );
-        dispatch(updateRequestingStatus(false));
+        dispatch(setUpdateRequestingStatus(false));
       }
     }, SSE_TIMEOUT);
 

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useRef} from 'react';
 import useNetworkHandling from './useNetworkHandling';
 import useNetworkErrorHandling from './useNetworkErrorHandling';
-import {updateCartItems} from '../reduxFile/cart/actions';
+import {setCartItems} from '../redux/reducer/Cart';
 
 const CancelToken = axios.CancelToken;
 
@@ -22,7 +22,7 @@ export default () => {
         `${API_BASE_URL}${CART}/${uid}`,
         source.current.token,
       );
-      dispatch(updateCartItems(data));
+      dispatch(setCartItems(data));
       return data;
     } catch (error) {
       handleApiError(error);

@@ -12,6 +12,7 @@ import {appStyles} from '../../../styles/styles';
 import {getMultipleData, getStoredData} from '../../../utils/storage';
 import i18n from '../../../i18n';
 import {setAddress} from '../../../redux/reducer/Address'
+import {setSaveUser, setToken} from '../../../redux/reducer/Auth';
 import {getUrlParams} from '../../../utils/utils';
 import {alertWithOneButton} from '../../../utils/alerts';
 import AppLogo from '../../../assets/app_logo.svg';
@@ -88,9 +89,9 @@ const Splash: React.FC<Splash> = ({navigation}) => {
             payload[item[0]] = item[1];
           }
         });
-        dispatch({type: 'save_user', payload});
+        dispatch(setSaveUser(payload));
         const idToken = await auth().currentUser?.getIdToken(true);
-        dispatch({type: 'set_token', payload: idToken});
+        dispatch(setToken(idToken));
         return payload;
       } else {
         return null;

@@ -1,16 +1,16 @@
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {logoutUser} from '../reduxFile/auth/actions';
-import {clearAllData} from '../reduxFile/actions';
+import {setLogoutUser} from '../redux/reducer/Auth';
+import {setclearAllData} from '../redux/reducer/Cart';
 
 export default () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const clearDataAndLogout = () => {
-    logoutUser(dispatch);
-    dispatch(clearAllData());
+    dispatch(setLogoutUser())
+    dispatch(setclearAllData());
 
     navigation.reset({
       index: 0,

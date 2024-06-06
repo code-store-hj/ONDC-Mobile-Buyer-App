@@ -9,7 +9,7 @@ import i18n from 'i18next';
 
 import {useAppTheme} from '../../../utils/theme';
 import {setStoredData} from '../../../utils/storage';
-import {updateLanguage} from '../../../reduxFile/auth/actions';
+import {setLanguage} from '../../../redux/reducer/Auth';
 
 const ChooseLanguage = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const ChooseLanguage = () => {
   const handleChangeLanguage = async (language: string) => {
     await i18n.changeLanguage(language);
     await setStoredData('language', language);
-    dispatch(updateLanguage(language));
+    dispatch(setLanguage(language));
     // Check if address preselected, if so directly navigate
     // to dashboard
     if (address && address.address) {

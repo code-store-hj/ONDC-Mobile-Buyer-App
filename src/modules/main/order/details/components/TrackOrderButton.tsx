@@ -16,7 +16,7 @@ import RNEventSource from 'react-native-event-source';
 import useNetworkHandling from '../../../../../hooks/useNetworkHandling';
 import {SSE_TIMEOUT} from '../../../../../utils/constants';
 import {makeButtonStyles} from './buttonStyles';
-import {updateRequestingTracker} from '../../../../../reduxFile/order/actions';
+import {setUpdateRequestingTracker} from '../../../../../redux/reducer/orderReducer';
 import {
   API_BASE_URL,
   MAP_ACCESS_TOKEN,
@@ -77,7 +77,7 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
   // use this api to track and order
   const handleFetchTrackOrderDetails = async () => {
     trackEventSourceResponseRef.current = [];
-    dispatch(updateRequestingTracker(true));
+    dispatch(setUpdateRequestingTracker(true));
     const transaction_id = orderDetails?.transactionId;
     const bpp_id = orderDetails?.bppId;
     const order_id = orderDetails?.id;
@@ -100,7 +100,7 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
       );
       fetchTrackingDataThroughEvents(data[0]?.context?.message_id);
     } catch (err: any) {
-      dispatch(updateRequestingTracker(false));
+      dispatch(setUpdateRequestingTracker(false));
       showToastWithGravity(err?.message);
     }
   };
@@ -126,7 +126,7 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
         showToastWithGravity(
           'Cannot proceed with you request now! Please try again',
         );
-        dispatch(updateRequestingTracker(false));
+        dispatch(setUpdateRequestingTracker(false));
       }
     }, SSE_TIMEOUT);
 
@@ -144,14 +144,14 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
         `${API_BASE_URL}/clientApis/v2/on_track?messageIds=${messageId}`,
         source.current.token,
       );
-      dispatch(updateRequestingTracker(false));
+      dispatch(setUpdateRequestingTracker(false));
       trackEventSourceResponseRef.current = [
         ...trackEventSourceResponseRef.current,
         data[0],
       ];
       const {message} = data[0];
       if (message.tracking.status === 'active' && message.tracking.url === '') {
-        dispatch(updateRequestingTracker(false));
+        dispatch(setUpdateRequestingTracker(false));
         showToastWithGravity(
           'Tracking information is not provided by the provider.',
         );
@@ -160,7 +160,7 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
         message.tracking.status === 'active' &&
         (message?.tracking?.url !== '' || message?.tracking?.url !== undefined)
       ) {
-        dispatch(updateRequestingTracker(false));
+        dispatch(setUpdateRequestingTracker(false));
         setTrackingUrl(message?.tracking?.url);
         setRoute(null);
         setCurrentPoint(null);
@@ -194,14 +194,14 @@ const TrackOrderButton: React.FC<TrackOrderButton> = ({}) => {
         setTrackingUrl('');
         trackingSheet.current.open();
       } else {
-        dispatch(updateRequestingTracker(false));
+        dispatch(setUpdateRequestingTracker(false));
         showToastWithGravity(
           'Tracking information is not provided by the provider.',
         );
         return;
       }
     } catch (err: any) {
-      dispatch(updateRequestingTracker(false));
+      dispatch(setUpdateRequestingTracker(false));
       showToastWithGravity(err?.message);
       eventTimeOutRef.current.forEach((timeout: any) => {
         timeout.eventSource.close();

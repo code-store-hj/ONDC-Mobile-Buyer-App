@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RadioButton, Text} from 'react-native-paper';
 import {alertWithTwoButtons} from '../../../../../utils/alerts';
-import {clearCart} from '../../../../../reduxFile/actions';
+import {setClearCart} from '../../../../../redux/reducer/Cart';
 import {setAddress} from '../../../../../redux/reducer/Address';
 import {useAppTheme} from '../../../../../utils/theme';
 import {setStoredData} from '../../../../../utils/storage';
@@ -47,7 +47,7 @@ const Address: React.FC<Address> = ({
         'You want update the address, it will clear your existing cart. Please confirm if you want to go ahead with this?',
         'Yes',
         () => {
-          dispatch(clearCart());
+          dispatch(setClearCart());
           addAddressToStore();
         },
         'No',

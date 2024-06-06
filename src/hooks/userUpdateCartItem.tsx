@@ -3,7 +3,7 @@ import {useRef} from 'react';
 import axios from 'axios';
 import useNetworkHandling from './useNetworkHandling';
 import {API_BASE_URL, CART} from '../utils/apiActions';
-import {updateCartItems} from '../reduxFile/cart/actions';
+import {setCartItems} from '../redux/reducer/Cart';
 
 const CancelToken = axios.CancelToken;
 
@@ -76,7 +76,7 @@ export default () => {
         }
       }
     }
-    dispatch(updateCartItems(items));
+    dispatch(setCartItems(items));
   };
 
   return {updateCartItem};
