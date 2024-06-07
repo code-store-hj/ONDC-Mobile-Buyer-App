@@ -627,6 +627,7 @@ const Cart = () => {
         <CloseSheetContainer closeSheet={() => addressSheet.current.close()}>
           <View style={styles.addressContainer}>
             <AddressList
+              closeSheet={() => addressSheet.current.close()}
               deliveryAddress={deliveryAddress}
               setDeliveryAddress={updateDeliveryAddress}
             />

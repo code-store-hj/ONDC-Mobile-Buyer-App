@@ -16,6 +16,7 @@ interface Address {
   isCurrentAddress: boolean;
   params: any;
   onAddressSelect: (item: any) => void;
+  closeSheet: any;
 }
 
 /**
@@ -30,6 +31,7 @@ const Address: React.FC<Address> = ({
   isCurrentAddress,
   params,
   onAddressSelect,
+  closeSheet,
 }) => {
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
@@ -87,7 +89,13 @@ const Address: React.FC<Address> = ({
           )}
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateAddress', {address: item})}>
+          onPress={() => {
+            closeSheet();
+            navigation.navigate('UpdateAddress', {
+              screenName: 'Cart',
+              address: item,
+            });
+          }}>
           <Icon name={'pencil'} color={theme.colors.primary} size={16} />
         </TouchableOpacity>
       </View>

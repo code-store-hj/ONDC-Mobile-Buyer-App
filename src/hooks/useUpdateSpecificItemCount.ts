@@ -18,7 +18,7 @@ export default () => {
     increment: boolean,
     uniqueId: any,
     cartItems: any[],
-    setCartItems: (items: any[]) => void,
+    setCartItemsData: (items: any[]) => void,
   ) => {
     try {
       setUpdatingCartItem(uniqueId);
@@ -95,7 +95,7 @@ export default () => {
             await putDataWithAuth(url, updatedCartItem, source.current.token);
           }
         }
-        setCartItems(items);
+        setCartItemsData(items);
       }
     } catch (e) {
       console.log(e);
