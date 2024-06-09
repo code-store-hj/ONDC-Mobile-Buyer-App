@@ -1,6 +1,6 @@
 import {Formik, FormikHelpers} from 'formik';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
+import Clipboard from '@react-native-community/clipboard';
 import {Button, Text} from 'react-native-paper';
 import React, {useState} from 'react';
 import * as Yup from 'yup';

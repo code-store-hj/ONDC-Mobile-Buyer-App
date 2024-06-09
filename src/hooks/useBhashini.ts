@@ -13,7 +13,7 @@ import useNetworkErrorHandling from './useNetworkErrorHandling';
 
 export default () => {
   const {handleApiError} = useNetworkErrorHandling();
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const [transliterationRequest, setTransliterationRequest] = useState({
     callbackUrl: '',
     authorizationKey: '',

@@ -18,8 +18,8 @@ import {
 } from '../utils/apiActions';
 import {setStoredData} from '../utils/storage';
 import useNetworkHandling from './useNetworkHandling';
-import {updateCartItems} from '../redux/cart/actions';
-import {updateTransactionId} from '../redux/auth/actions';
+import {setCartItems} from '../redux/reducer/Cart';
+import {setTractionId} from '../redux/reducer/Auth';
 
 const CancelToken = axios.CancelToken;
 
@@ -28,9 +28,7 @@ export default (openFulfillmentSheet: () => void) => {
   const dispatch = useDispatch();
   const source = useRef<any>(null);
   const address = useRef<any>(null);
-  const {token, uid, transaction_id} = useSelector(
-    ({authReducer}) => authReducer,
-  );
+  const {token, uid, transaction_id} = useSelector((state: any) => state.Auth);
   const navigation = useNavigation<StackNavigationProp<any>>();
   const responseRef = useRef<any[]>([]);
   const eventTimeOutRef = useRef<any[]>([]);
@@ -39,7 +37,7 @@ export default (openFulfillmentSheet: () => void) => {
   const [selectedItemsForInit, setSelectedItemsForInit] = useState<any[]>([]);
   const [eventData, setEventData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [cartItems, setCartItems] = useState<any>([]);
+  const [cartItems, setCartItemsData] = useState<any>([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [haveDistinctProviders, setHaveDistinctProviders] =
     useState<boolean>(false);
@@ -94,8 +92,8 @@ export default (openFulfillmentSheet: () => void) => {
         `${API_BASE_URL}${CART}/${uid}`,
         source.current.token,
       );
-      setCartItems(data);
-      dispatch(updateCartItems(data));
+      setCartItemsData(data);
+      dispatch(setCartItems(data));
       updatedCartItems.current = data;
     } catch (error) {
       console.log('Error fetching cart items:', error);
@@ -206,7 +204,7 @@ export default (openFulfillmentSheet: () => void) => {
   const navigateToDashboard = async () => {
     const transactionId: any = uuid.v4();
     await setStoredData('transaction_id', transactionId);
-    dispatch(updateTransactionId(transactionId));
+    dispatch(setTractionId(transactionId));
     setCheckoutLoading(false);
     showToastWithGravity('Cannot fetch details for this product');
     navigation.navigate('Dashboard');
@@ -320,7 +318,7 @@ export default (openFulfillmentSheet: () => void) => {
     haveDistinctProviders,
     isProductAvailableQuantityIsZero,
     isProductCategoryIsDifferent,
-    setCartItems,
+    setCartItemsData,
     selectedItems,
     setSelectedItems,
     selectedItemsForInit,

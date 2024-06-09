@@ -12,7 +12,7 @@ interface Actions {
 const Actions: React.FC<Actions> = ({onUpdateOrder}) => {
   const {colors} = useAppTheme();
   const styles = makeStyles(colors);
-  const {orderDetails} = useSelector(({orderReducer}) => orderReducer);
+  const {orderDetails} = useSelector((state: any) => state.orderReducer);
 
   if (orderDetails?.state !== 'Completed') {
     return (

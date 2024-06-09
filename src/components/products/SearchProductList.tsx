@@ -36,7 +36,7 @@ const SearchProducts: React.FC<SearchProductList> = ({searchQuery}) => {
   const styles = makeStyles(theme.colors);
   const {getDataWithAuth} = useNetworkHandling();
   const {handleApiError} = useNetworkErrorHandling();
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const {
     startVoice,
     userInteractionStarted,

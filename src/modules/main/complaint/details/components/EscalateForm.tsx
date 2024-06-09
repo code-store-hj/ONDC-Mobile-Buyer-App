@@ -33,10 +33,8 @@ const EscalateForm = ({
   const responseRef = useRef<any[]>([]);
   const [remarks, setRemarks] = useState<string>('');
   const [apiInProgress, setApiInProgress] = useState<boolean>(false);
-  const {complaintDetails} = useSelector(
-    ({complaintReducer}) => complaintReducer,
-  );
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {complaintDetails} = useSelector((state: any) => state.Complaint);
+  const {token} = useSelector((state: any) => state.Auth);
   const {getDataWithAuth, postDataWithAuth} = useNetworkHandling();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);

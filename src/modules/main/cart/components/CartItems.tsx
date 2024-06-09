@@ -23,7 +23,7 @@ import {
 } from '../../../../utils/utils';
 import useNetworkHandling from '../../../../hooks/useNetworkHandling';
 import FBProductCustomization from '../../provider/components/FBProductCustomization';
-import {updateCartItems} from '../../../../redux/cart/actions';
+import {setCartItems} from '../../../../redux/reducer/Cart';
 import Customizations from '../../../../components/customization/Customizations';
 import ManageQuantity from '../../../../components/customization/ManageQuantity';
 import useUpdateSpecificItemCount from '../../../../hooks/useUpdateSpecificItemCount';
@@ -33,12 +33,13 @@ import {CURRENCY_SYMBOLS, FB_DOMAIN} from '../../../../utils/constants';
 import CloseSheetContainer from '../../../../components/bottomSheet/CloseSheetContainer';
 import {useAppTheme} from '../../../../utils/theme';
 import DeleteIcon from '../../../../assets/delete.svg';
+import ApplyCoupon from './ApplyCoupon'
 
 interface CartItems {
   allowScroll?: boolean;
   providerWiseItems: any[];
   cartItems: any[];
-  setCartItems: (items: any[]) => void;
+  setCartItemsData: (items: any[]) => void;
   haveDistinctProviders: boolean;
   isProductCategoryIsDifferent: boolean;
 }
@@ -51,7 +52,7 @@ const CartItems: React.FC<CartItems> = ({
   isProductCategoryIsDifferent,
   providerWiseItems,
   cartItems,
-  setCartItems,
+  setCartItemsData,
 }) => {
   const {t} = useTranslation();
   const theme = useAppTheme();
@@ -63,7 +64,7 @@ const CartItems: React.FC<CartItems> = ({
   const {updatingCartItem, updateSpecificCartItem} =
     useUpdateSpecificItemCount();
   const dispatch = useDispatch();
-  const {uid} = useSelector(({authReducer}) => authReducer);
+  const {uid} = useSelector((state: any) => state.Auth);
   const navigation = useNavigation<StackNavigationProp<any>>();
   const customizationSheet = useRef<any>(null);
   const source = useRef<any>(null);
@@ -98,7 +99,7 @@ const CartItems: React.FC<CartItems> = ({
       increment,
       uniqueId,
       cartItems,
-      setCartItems,
+      setCartItemsData,
     );
   };
 
@@ -111,8 +112,8 @@ const CartItems: React.FC<CartItems> = ({
         source.current.token,
       );
       const list = cartItems.filter((item: any) => item._id !== itemId);
-      setCartItems(list);
-      dispatch(updateCartItems(list));
+      setCartItemsData(list);
+      dispatch(setCartItems(list));
     } catch (error) {
     } finally {
       setItemToDelete(null);
@@ -165,7 +166,7 @@ const CartItems: React.FC<CartItems> = ({
         source.current = CancelToken.source();
         await putDataWithAuth(url, updatedCartItem, source.current.token);
         hideCustomization();
-        setCartItems(items);
+        setCartItemsData(items);
       }
       hideCustomization();
     } catch (e) {
@@ -338,6 +339,7 @@ const CartItems: React.FC<CartItems> = ({
             </View>
           </View>
         ))}
+        <ApplyCoupon/>
         {haveDistinctProviders && (
           <View style={styles.errorBox}>
             <Text variant={'bodyMedium'} style={styles.errorText}>

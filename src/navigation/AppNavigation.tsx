@@ -16,6 +16,7 @@ import Profile from '../modules/main/profile/Profile';
 import OrderDetails from '../modules/main/order/details/OrderDetails';
 import UpdateAddress from '../modules/main/dashboard/components/address/UpdateAddress';
 import CategoryDetails from '../modules/main/category/CategoryDetails';
+import CouponList from '../modules/main/category/CouponList';
 import BrandDetails from '../modules/main/provider/BrandDetails';
 import SubCategoryDetails from '../modules/main/subCategory/SubCategoryDetails';
 import Outlets from '../modules/main/provider/Outlets';
@@ -24,6 +25,7 @@ import ChooseLanguage from '../modules/main/profile/ChooseLanguage';
 import CancelOrder from '../modules/main/order/details/CancelOrder';
 import SearchProducts from '../modules/main/dashboard/SearchProducts';
 import PaymentMethods from '../modules/main/order/details/PaymentMethods';
+import RateOrder from '../modules/main/order/details/RateOrder';
 import OrderProductDetails from '../modules/main/order/details/OrderProductDetails';
 import ReturnItem from '../modules/main/order/details/ReturnItem';
 import Complaints from '../modules/main/complaint/list/Complaints';
@@ -189,6 +191,13 @@ const AppNavigation: React.FC<AppNavigation> = ({navigationRef}) => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="CouponList"
+          component={CouponList}
+          options={{
+            title: 'Apply Coupon',
+          }}
+        />
+        <Stack.Screen
           name="SubCategoryDetails"
           component={SubCategoryDetails}
           options={({navigation}) => ({
@@ -219,6 +228,11 @@ const AppNavigation: React.FC<AppNavigation> = ({navigationRef}) => {
         <Stack.Screen
           name="PaymentMethods"
           component={PaymentMethods}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RateOrder"
+          component={RateOrder}
           options={{headerShown: false}}
         />
         <Stack.Screen

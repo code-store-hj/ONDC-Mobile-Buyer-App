@@ -4,6 +4,7 @@ import Header from '../header/Header';
 import Categories from '../home/Categories';
 import {useAppTheme} from '../../../../../utils/theme';
 import StoresNearMe from '../../../category/components/StoresNearMe';
+import Offers from '../../../category/components/Offers';
 
 const Home = () => {
   const theme = useAppTheme();
@@ -14,6 +15,7 @@ const Home = () => {
       <Header />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Categories />
+        <Offers />
         <StoresNearMe />
       </ScrollView>
     </View>

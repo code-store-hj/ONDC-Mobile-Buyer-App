@@ -3,7 +3,9 @@ import {useDispatch} from 'react-redux';
 import uuid from 'react-native-uuid';
 
 import {saveMultipleData} from '../utils/storage';
-import {checkLanguageAndLogin} from '../redux/auth/actions';
+import {setLoginDetails} from '../redux/reducer/Auth';
+import {clearAll, getStoredData, setStoredData} from '../utils/storage';
+import i18n from '../i18n';
 
 export default () => {
   const navigation = useNavigation<any>();
@@ -39,12 +41,41 @@ export default () => {
         photoURL: photoURL,
         transaction_id: transactionId,
       };
-      dispatch({type: 'set_login_details', payload});
+      dispatch(setLoginDetails(payload));
 
       checkLanguageAndLogin(navigation);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const checkLanguageAndLogin = (navigation: any) => {
+    getStoredData('language').then(language => {
+      if (!language) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'ChooseLanguage'}],
+        });
+      } else {
+        i18n.changeLanguage(language).then(() => {
+          getStoredData('address').then(address => {
+            if (address) {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Dashboard'}],
+              });
+            } else {
+              navigation.reset({
+                index: 0,
+                routes: [
+                  {name: 'AddressList', params: {navigateToDashboard: true}},
+                ],
+              });
+            }
+          });
+        });
+      }
+    });
   };
 
   return {storeDetails};

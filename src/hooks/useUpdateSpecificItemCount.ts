@@ -10,7 +10,7 @@ const CancelToken = axios.CancelToken;
 export default () => {
   const [updatingCartItem, setUpdatingCartItem] = useState<any>(null);
   const {putDataWithAuth} = useNetworkHandling();
-  const {uid} = useSelector(({authReducer}) => authReducer);
+  const {uid} = useSelector((state: any) => state.Auth);
   const source = useRef<any>(null);
 
   const updateSpecificCartItem = async (
@@ -18,7 +18,7 @@ export default () => {
     increment: boolean,
     uniqueId: any,
     cartItems: any[],
-    setCartItems: (items: any[]) => void,
+    setCartItemsData: (items: any[]) => void,
   ) => {
     try {
       setUpdatingCartItem(uniqueId);
@@ -95,7 +95,7 @@ export default () => {
             await putDataWithAuth(url, updatedCartItem, source.current.token);
           }
         }
-        setCartItems(items);
+        setCartItemsData(items);
       }
     } catch (e) {
       console.log(e);

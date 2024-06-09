@@ -67,7 +67,7 @@ const Payment: React.FC<Payment> = ({
 }) => {
   const {t} = useTranslation();
   const theme = useAppTheme();
-  const {token, transaction_id} = useSelector(({authReducer}) => authReducer);
+  const {token, transaction_id} = useSelector((state: any) => state.Auth);
   const {getDataWithAuth, postDataWithAuth} = useNetworkHandling();
   const {handleApiError} = useNetworkErrorHandling();
   const updatedCartItems = useRef<any[]>([]);

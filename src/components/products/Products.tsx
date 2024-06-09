@@ -19,6 +19,7 @@ import useReadAudio from '../../hooks/useReadAudio';
 import {useSelector} from 'react-redux';
 import {ProgressBar} from 'react-native-paper';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import Coupon from './Coupon';
 
 interface Products {
   providerId: any;
@@ -40,7 +41,7 @@ const Products: React.FC<Products> = ({
   const productSearchSource = useRef<any>(null);
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const {
     startVoice,
     userInteractionStarted,
@@ -176,6 +177,8 @@ const Products: React.FC<Products> = ({
           setSearchQuery={setSearchQuery}
         />
       </View>
+
+      <Coupon/>
 
       {productsRequested ? (
         <View style={styles.listContainer}>

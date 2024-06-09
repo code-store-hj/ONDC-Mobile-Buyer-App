@@ -26,9 +26,7 @@ const CloseForm = ({
   const source = useRef<any>(null);
   const [rating, setRating] = useState<string>('');
   const [apiInProgress, setApiInProgress] = useState<boolean>(false);
-  const {complaintDetails} = useSelector(
-    ({complaintReducer}) => complaintReducer,
-  );
+  const {complaintDetails} = useSelector((state: any) => state.Complaint);
   const {postDataWithAuth} = useNetworkHandling();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);

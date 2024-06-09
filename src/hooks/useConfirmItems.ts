@@ -20,7 +20,7 @@ import {
 import {constructQuoteObject, showToastWithGravity} from '../utils/utils';
 import useNetworkHandling from './useNetworkHandling';
 import useNetworkErrorHandling from './useNetworkErrorHandling';
-import {updateTransactionId} from '../redux/auth/actions';
+import {setTractionId} from '../redux/reducer/Auth';
 
 const CancelToken = axios.CancelToken;
 export default (closePaymentSheet: () => void, stopAndDestroyVoiceListener: () => void) => {
@@ -29,7 +29,7 @@ export default (closePaymentSheet: () => void, stopAndDestroyVoiceListener: () =
   const responseRef = useRef<any[]>([]);
   const source = useRef<any>(null);
   const eventTimeOutRef = useRef<any[]>([]);
-  const {token} = useSelector(({authReducer}) => authReducer);
+  const {token} = useSelector((state: any) => state.Auth);
   const {getDataWithAuth, postDataWithAuth} = useNetworkHandling();
   const {handleApiError} = useNetworkErrorHandling();
   const [deliveryAddress, setDeliveryAddress] = useState<any>(null);
@@ -281,7 +281,7 @@ export default (closePaymentSheet: () => void, stopAndDestroyVoiceListener: () =
         await removeData('parent_order_id');
         await removeData('checkout_details');
         await removeData('parent_and_transaction_id_map');
-        dispatch(updateTransactionId(transactionId));
+        dispatch(setTractionId(transactionId));
         closePaymentSheet();
         stopAndDestroyVoiceListener();
         navigation.navigate('OrderDetails', {

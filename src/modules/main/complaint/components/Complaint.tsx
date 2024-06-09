@@ -7,7 +7,7 @@ import moment from 'moment';
 import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import {ISSUE_TYPES} from '../../../../utils/issueTypes';
-import {updateComplaint} from '../../../../redux/complaint/actions';
+import {setComplaint} from '../../../../redux/reducer/Complaint';
 import ComplaintStatus from './ComplaintStatus';
 import {useAppTheme} from '../../../../utils/theme';
 
@@ -33,7 +33,7 @@ const Complaint = ({complaint}: {complaint: any}) => {
   const address = order_details?.fulfillments[0]?.end?.location?.address;
 
   const navigateToDetails = () => {
-    dispatch(updateComplaint(complaint));
+    dispatch(setComplaint(complaint));
     navigation.navigate('ComplaintDetails');
   };
 

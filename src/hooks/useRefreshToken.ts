@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-import {updateToken} from '../redux/auth/actions';
+import {setToken} from '../redux/reducer/Auth';
 
 export default () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export default () => {
     auth()
       .currentUser?.getIdToken(true)
       .then(idToken => {
-        updateToken(dispatch, idToken);
+        dispatch(setToken(idToken));
       })
       .catch(error => {
         console.error(error);

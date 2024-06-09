@@ -42,7 +42,7 @@ const Cart = () => {
   const {t} = useTranslation();
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
-  const {address} = useSelector(({addressReducer}) => addressReducer);
+  const {address} = useSelector((state: any) => state.Address);
   const isFocused = useIsFocused();
   const addressSheet = useRef<any>();
   const fulfillmentSheet = useRef<any>();
@@ -79,14 +79,14 @@ const Cart = () => {
     haveDistinctProviders,
     isProductAvailableQuantityIsZero,
     isProductCategoryIsDifferent,
-    setCartItems,
+    setCartItemsData,
     selectedItems,
     setSelectedItems,
     selectedItemsForInit,
     updateSelectedItemsForInit,
   } = useSelectItems(openFulfillmentSheet);
 
-  const {language} = useSelector(({authReducer}) => authReducer);
+  const {language} = useSelector((state: any) => state.Auth);
   const {
     startVoice,
     userInteractionStarted,
@@ -536,7 +536,7 @@ const Cart = () => {
                   <CartItems
                     providerWiseItems={providerWiseItems}
                     cartItems={cartItems}
-                    setCartItems={setCartItems}
+                    setCartItemsData={setCartItemsData}
                     haveDistinctProviders={haveDistinctProviders}
                     isProductCategoryIsDifferent={isProductCategoryIsDifferent}
                   />
@@ -643,6 +643,7 @@ const Cart = () => {
         <CloseSheetContainer closeSheet={() => addressSheet.current.close()}>
           <View style={styles.addressContainer}>
             <AddressList
+              closeSheet={() => addressSheet.current.close()}
               deliveryAddress={deliveryAddress}
               setDeliveryAddress={updateDeliveryAddress}
             />

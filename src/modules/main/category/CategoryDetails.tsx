@@ -6,6 +6,7 @@ import SubCategories from './components/SubCategories';
 import StoresNearMe from './components/StoresNearMe';
 import {appStyles} from '../../../styles/styles';
 import Page from '../../../components/page/Page';
+import Offers from '../category/components/Offers';
 
 interface CategoryDetails {
   route: any;
@@ -19,6 +20,7 @@ const CategoryDetails: React.FC<CategoryDetails> = ({route: {params}}) => {
         <ScrollView style={appStyles.container}>
           <Categories currentCategory={params.category} />
           <SubCategories currentCategory={params.category} />
+          <Offers />
           <StoresNearMe domain={params.domain} />
         </ScrollView>
       </View>

@@ -6,8 +6,8 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RadioButton, Text} from 'react-native-paper';
 import {alertWithTwoButtons} from '../../../../../utils/alerts';
-import {clearCart} from '../../../../../redux/actions';
-import {saveAddress} from '../../../../../redux/address/actions';
+import {setClearCart} from '../../../../../redux/reducer/Cart';
+import {setAddress} from '../../../../../redux/reducer/Address';
 import {useAppTheme} from '../../../../../utils/theme';
 import {setStoredData} from '../../../../../utils/storage';
 
@@ -16,6 +16,7 @@ interface Address {
   isCurrentAddress: boolean;
   params: any;
   onAddressSelect: (item: any) => void;
+  closeSheet: any;
 }
 
 /**
@@ -30,13 +31,14 @@ const Address: React.FC<Address> = ({
   isCurrentAddress,
   params,
   onAddressSelect,
+  closeSheet,
 }) => {
   const theme = useAppTheme();
   const styles = makeStyles(theme.colors);
   const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const {street, landmark, city, state, areaCode} = item.address;
-  const {cartItems} = useSelector(({cartReducer}) => cartReducer);
+  const {cartItems} = useSelector((state: any) => state.Cart);
 
   const setDefaultAddress = async () => {
     if (params?.navigateToNext) {
@@ -47,7 +49,7 @@ const Address: React.FC<Address> = ({
         'You want update the address, it will clear your existing cart. Please confirm if you want to go ahead with this?',
         'Yes',
         () => {
-          dispatch(clearCart());
+          dispatch(setClearCart());
           addAddressToStore();
         },
         'No',
@@ -60,7 +62,7 @@ const Address: React.FC<Address> = ({
 
   const addAddressToStore = async () => {
     await setStoredData('address', JSON.stringify(item));
-    dispatch(saveAddress(item));
+    dispatch(setAddress(item));
     if (params?.navigateToDashboard) {
       navigation.reset({
         index: 0,
@@ -87,7 +89,13 @@ const Address: React.FC<Address> = ({
           )}
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('UpdateAddress', {address: item})}>
+          onPress={() => {
+            closeSheet();
+            navigation.navigate('UpdateAddress', {
+              screenName: 'Cart',
+              address: item,
+            });
+          }}>
           <Icon name={'pencil'} color={theme.colors.primary} size={16} />
         </TouchableOpacity>
       </View>

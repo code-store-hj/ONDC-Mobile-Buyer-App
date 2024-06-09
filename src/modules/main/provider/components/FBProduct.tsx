@@ -31,7 +31,7 @@ import {makeGlobalStyles} from '../../../../styles/styles';
 import Customizations from '../../../../components/customization/Customizations';
 import ManageQuantity from '../../../../components/customization/ManageQuantity';
 import useUpdateSpecificItemCount from '../../../../hooks/useUpdateSpecificItemCount';
-import {updateCartItems} from '../../../../redux/cart/actions';
+import {setCartItems} from '../../../../redux/reducer/Cart';
 import useCustomizationStateHelper from '../../../../hooks/useCustomizationStateHelper';
 import CustomizationFooterButtons from './CustomizationFooterButtons';
 import FBProductDetails from '../../product/details/FBProductDetails';
@@ -56,8 +56,8 @@ const FBProduct: React.FC<FBProduct> = ({product}) => {
   const {deleteDataWithAuth, getDataWithAuth, postDataWithAuth} =
     useNetworkHandling();
   const {handleApiError} = useNetworkErrorHandling();
-  const {uid} = useSelector(({authReducer}) => authReducer);
-  const {cartItems} = useSelector(({cartReducer}) => cartReducer);
+  const {uid} = useSelector((state: any) => state.Auth);
+  const {cartItems} = useSelector((state: any) => state.Cart);
   const {getCartItems} = useCartItems();
   const {updateCartItem} = userUpdateCartItem();
   const {updatingCartItem, updateSpecificCartItem} =
@@ -363,8 +363,8 @@ const FBProduct: React.FC<FBProduct> = ({product}) => {
     }
   };
 
-  const setCartItems = (items: any[]) => {
-    dispatch(updateCartItems(items));
+  const setCartItemsFunction = (items: any[]) => {
+    dispatch(setCartItems(items));
   };
 
   const updateSpecificItem = async (
@@ -377,7 +377,7 @@ const FBProduct: React.FC<FBProduct> = ({product}) => {
       increment,
       uniqueId,
       cartItems,
-      setCartItems,
+      setCartItemsFunction,
     );
   };
 
@@ -390,7 +390,7 @@ const FBProduct: React.FC<FBProduct> = ({product}) => {
         source.current.token,
       );
       const list = cartItems.filter((item: any) => item._id !== itemId);
-      dispatch(updateCartItems(list));
+      dispatch(setCartItems(list));
     } catch (error) {
       console.log(error);
     } finally {

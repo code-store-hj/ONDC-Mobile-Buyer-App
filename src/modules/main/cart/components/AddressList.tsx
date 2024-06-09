@@ -13,11 +13,12 @@ import useNetworkErrorHandling from '../../../../hooks/useNetworkErrorHandling';
 import {skeletonList} from '../../../../utils/utils';
 import {appStyles} from '../../../../styles/styles';
 import AddressSkeleton from '../../dashboard/components/address/AddressSkeleton';
-import {saveAddress} from '../../../../redux/address/actions';
+import {setAddress} from '../../../../redux/reducer/Address';
 import {useAppTheme} from '../../../../utils/theme';
 import {setStoredData} from '../../../../utils/storage';
 
 interface AddressList {
+  closeSheet: any;
   deliveryAddress: any;
   setDeliveryAddress: (newAddress: any) => void;
 }
@@ -25,6 +26,7 @@ interface AddressList {
 const CancelToken = axios.CancelToken;
 
 const AddressList: React.FC<AddressList> = ({
+  closeSheet,
   deliveryAddress,
   setDeliveryAddress,
 }) => {
@@ -42,7 +44,7 @@ const AddressList: React.FC<AddressList> = ({
 
   const updateDeliveryAddress = async (newAddress: any) => {
     await setStoredData('address', JSON.stringify(newAddress));
-    dispatch(saveAddress(newAddress));
+    dispatch(setAddress(newAddress));
     setDeliveryAddress(Object.assign({}, newAddress));
   };
 
@@ -109,6 +111,7 @@ const AddressList: React.FC<AddressList> = ({
                 isCurrentAddress={deliveryAddress?.id === item?.id}
                 params={{navigateToNext: true}}
                 onAddressSelect={updateDeliveryAddress}
+                closeSheet={closeSheet}
               />
             )}
             keyExtractor={item => item.id}
@@ -118,7 +121,12 @@ const AddressList: React.FC<AddressList> = ({
                   labelStyle={appStyles.containedButtonLabel}
                   contentStyle={appStyles.containedButtonContainer}
                   mode="outlined"
-                  onPress={() => navigation.navigate('AddDefaultAddress')}>
+                  onPress={() => {
+                    closeSheet();
+                    navigation.navigate('AddDefaultAddress', {
+                      screenName: 'Cart',
+                    });
+                  }}>
                   Add Address
                 </Button>
               </View>
@@ -131,7 +139,10 @@ const AddressList: React.FC<AddressList> = ({
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('AddDefaultAddress')}>
+            onPress={() => {
+              closeSheet();
+              navigation.navigate('AddDefaultAddress', {screenName: 'Cart'});
+            }}>
             <Text variant={'labelLarge'} style={styles.buttonLabel}>
               {t('Address List.Add new address')}
             </Text>
